@@ -1,3 +1,10 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV || "development"}`,
+});
+
+const clientConfig = require("./client-config");
+const isProd = process.env.NODE_ENV === "production";
+
 module.exports = {
   siteMetadata: {
     title: "AGC CM Website",
@@ -6,8 +13,10 @@ module.exports = {
     {
       resolve: "gatsby-source-sanity",
       options: {
-        projectId: "be9hrejb",
-        dataset: "production",
+        ...clientConfig.sanity,
+        token: process.env.SANITY_READ_TOKEN,
+        watchMode: !isProd,
+        overlayDrafts: !isProd,
       },
     },
     "gatsby-plugin-postcss",
