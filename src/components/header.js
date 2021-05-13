@@ -1,28 +1,31 @@
 import { Link } from "gatsby";
 import React from "react";
 import Icon from "./icon";
+import SanityGatsbyImage from "./sanityGatsbyImage";
 import { cn } from "../lib/helpers";
 
-import * as styles from "./header.module.css";
-
-const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => (
-  <div className={styles.root}>
-    <div className={styles.wrapper}>
-      <div className={styles.branding}>
-        <Link to="/">{siteTitle}</Link>
+const Header = ({ onHideNav, onShowNav, showNav, siteTitle, logo }) => (
+  <div className="relative z-50">
+    <div className="container mx-auto flex p-5">
+      <div className="font-bold text-xl flex-1">
+        <Link to="/">
+          <SanityGatsbyImage node={logo} alt={siteTitle} />
+        </Link>
       </div>
 
       <button
-        className={styles.toggleNavButton}
+        className="appearance-none font-2xl border-none bg-none m-0 outline-none hidden md:inline"
         onClick={showNav ? onHideNav : onShowNav}
       >
-        <Icon symbol="hamburger" />
+        <Icon className="block" symbol="hamburger" />
       </button>
 
-      <nav className={cn(styles.nav, showNav && styles.showNav)}>
+      <nav className={cn("hidden", showNav && "block")}>
         <ul>
           <li>
-            <Link to="/archive/">Archive</Link>
+            <Link className="block hover:text-green-500" to="/">
+              Home
+            </Link>
           </li>
         </ul>
       </nav>

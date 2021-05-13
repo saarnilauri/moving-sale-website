@@ -5,7 +5,6 @@ import Container from "../components/container";
 import GraphQLErrorList from "../components/graphql-error-list";
 import SEO from "../components/seo";
 import Layout from "../containers/layout";
-import SanityGatsbyImage from "../components/sanityGatsbyImage";
 
 export const query = graphql`
   fragment SiteLogo on SanitySiteConfig {
@@ -13,20 +12,13 @@ export const query = graphql`
       alt
       asset {
         _id
-        gatsbyImageData(
-          fit: FILLMAX
-          placeholder: BLURRED
-          aspectRatio: 1
-          layout: FIXED
-          width: 100
-        )
+        gatsbyImageData(placeholder: BLURRED, layout: FIXED, width: 350)
       }
     }
   }
   query SiteConfig {
     site: sanitySiteConfig(_id: { eq: "global-config" }) {
       title
-      ...SiteLogo
       frontpage {
         title
         description
@@ -142,9 +134,6 @@ const IndexPage = (props) => {
       <Container>
         <main>
           <div className="flex align-middle justify-start items-center">
-            <div>
-              <SanityGatsbyImage node={data.site.logo} />
-            </div>
             <div>
               <h1 className="text-3xl text-green-500 m-4">{data.site.title}</h1>
             </div>

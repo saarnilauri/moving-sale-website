@@ -6,6 +6,7 @@ const query = graphql`
   query SiteTitleQuery {
     site: sanitySiteConfig(_id: { eq: "global-config" }) {
       title
+      ...SiteLogo
       _rawFooterText(resolveReferences: { maxDepth: 10 })
     }
   }
@@ -29,14 +30,13 @@ function LayoutContainer(props) {
     );
   }
 
-  console.log(data);
-
   return (
     <Layout
       {...props}
       showNav={showNav}
       siteTitle={data.site.title}
       footerText={data.site._rawFooterText}
+      logo={data.site.logo}
       onHideNav={handleHideNav}
       onShowNav={handleShowNav}
     />

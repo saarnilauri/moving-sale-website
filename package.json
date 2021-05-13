@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@fontsource/battambang": "^4.3.0",
+    "@fontsource/dangrek": "^4.3.0",
     "@sanity/block-content-to-react": "^2.0.7",
     "@sanity/image-url": "^0.140.22",
     "date-fns": "^2.21.3",
