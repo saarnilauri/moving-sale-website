@@ -5,6 +5,10 @@ import Container from "../components/container";
 import GraphQLErrorList from "../components/graphql-error-list";
 import SEO from "../components/seo";
 import Layout from "../containers/layout";
+import Hero from "../components/hero";
+import TextSection from "../components/textSection";
+import ImageSection from "../components/imageSection";
+import { getTwColorName } from "../lib/helpers";
 
 export const query = graphql`
   fragment SiteLogo on SanitySiteConfig {
@@ -53,21 +57,19 @@ export const query = graphql`
               link
               title
             }
+            _rawTagline(resolveReferences: { maxDepth: 5 })
+            color {
+              title
+            }
             backgroundImage {
               asset {
-                url
-              }
-              crop {
-                bottom
-                left
-                right
-                top
-              }
-              hotspot {
-                height
-                width
-                x
-                y
+                _id
+                gatsbyImageData(
+                  placeholder: DOMINANT_COLOR
+                  layout: FULL_WIDTH
+                  width: 2850
+                  formats: WEBP
+                )
               }
             }
           }
@@ -79,28 +81,28 @@ export const query = graphql`
               title
               link
             }
+            color {
+              title
+            }
             image {
               alt
               asset {
-                url
-              }
-              crop {
-                bottom
-                left
-                right
-                top
-              }
-              hotspot {
-                height
-                width
-                x
-                y
+                _id
+                gatsbyImageData(
+                  placeholder: BLURRED
+                  layout: FULL_WIDTH
+                  width: 2850
+                  formats: WEBP
+                )
               }
             }
           }
           ... on SanityTextSection {
             _key
             heading
+            color {
+              title
+            }
             _rawText(resolveReferences: { maxDepth: 5 })
           }
         }
@@ -131,16 +133,41 @@ const IndexPage = (props) => {
         keywords={data.site.frontpage?.keywords}
         image={data.site.frontpage?.openGraphImage}
       />
-      <Container>
+      <>
         <main>
-          <div className="flex align-middle justify-start items-center">
-            <div>
-              <h1 className="text-3xl text-green-500 m-4">{data.site.title}</h1>
-            </div>
-          </div>
+          {data.site.frontpage.content.map((content) => {
+            console.log(content._type);
+            return (
+              <div key={content._key}>
+                {content._type === "hero" && (
+                  <Hero
+                    title={content.heading}
+                    img={content.backgroundImage}
+                    text={content._rawTagline}
+                    color={getTwColorName(content.color?.title)}
+                  />
+                )}
+                {!content._type && (
+                  <TextSection
+                    title={content.heading}
+                    text={content._rawText}
+                    color={getTwColorName(content.color?.title)}
+                  />
+                )}
+                {content._type === "imageSection" && (
+                  <ImageSection
+                    title={content.heading}
+                    img={content.image}
+                    cta={content.cta}
+                    color={getTwColorName(content.color?.title)}
+                  />
+                )}
+              </div>
+            );
+          })}
           {debug && <pre>{JSON.stringify(data, null, 2)}</pre>}
         </main>
-      </Container>
+      </>
     </Layout>
   );
 };

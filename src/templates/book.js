@@ -1,11 +1,12 @@
 import React from "react";
 import { graphql, Link } from "gatsby";
+import { BiBookOpen } from "react-icons/bi";
 import GraphQLErrorList from "../components/graphql-error-list";
 import Layout from "../containers/layout";
 import Container from "../components/container";
 import SEO from "../components/seo";
-import H1 from "../components/h1";
 import SanityGatsbyImage from "../components/sanityGatsbyImage";
+import TextSection from "../components/textSection";
 
 export const query = graphql`
   query BookTemplateQuery($id: String!) {
@@ -31,7 +32,7 @@ export const query = graphql`
     }
     lessons: allSanityLesson(
       filter: { book: { id: { eq: $id } } }
-      sort: { fields: slug___current, order: ASC }
+      sort: { fields: orderNum, order: ASC }
     ) {
       edges {
         node {
@@ -52,8 +53,7 @@ const BookTemplate = (props) => {
   const { data, errors } = props;
   const book = data && data.book;
   const lessons = data && data.lessons;
-  const path = `/book/${book.slug.current}/`;
-  const bookLink = `https://agc-cm.com${path}`;
+
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
@@ -71,27 +71,33 @@ const BookTemplate = (props) => {
       )}
 
       {book && (
-        <main className="container mx-auto">
-          <div className="flex items-stretch flex-col md:flex-row">
-            <div className="p-5">
-              <H1>{book?.title}</H1>
-              <p>{book.description}</p>
-              <p>Link: {bookLink}</p>
-            </div>
-            <div className="block w-full">
-              <p>Info</p>
-              {book.coverImage && <SanityGatsbyImage image={book.coverImage} />}
-              <ul>
-                {lessons.edges.map((lesson) => (
-                  <li key={lesson.node.id}>
-                    <Link
-                      to={`/book/${book.slug.current}/${lesson.node.slug.current}`}
-                    >
-                      {lesson.node.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+        <main className="">
+          <TextSection title={book?.title} color="orange" />
+
+          <div className="border-b-4 border-t-0 border-teal-300">
+            <div className="bg-teal-200 p-12 md:p-24 flex justify-center items-center">
+              <div className="max-w-md">
+                <div className="w-24 h-2 bg-indigo-600 mb-4"></div>
+
+                <h2 className="font-display font-bold text-2xl md:text-3xl lg:text-3xl mb-6 text-orange-500">
+                  មេរៀនទាំងអស់ដែលមានការណែនាំវីដេអូ
+                </h2>
+                {book.coverImage && (
+                  <SanityGatsbyImage image={book.coverImage} />
+                )}
+                <ul>
+                  {lessons.edges.map((lesson) => (
+                    <li key={lesson.node.id} className="flex items-center mb-2 gap-2">
+                      <BiBookOpen color="teal" />
+                      <Link
+                        to={`/book/${book.slug.current}/${lesson.node.slug.current}`}
+                      >
+                        {lesson.node.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </main>

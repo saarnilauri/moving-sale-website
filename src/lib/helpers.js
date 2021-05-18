@@ -47,3 +47,10 @@ export function toPlainText(blocks) {
     })
     .join("\n\n");
 }
+
+export function getTwColorName(color) {
+  let twColorName = color ? color.toLowerCase() : "gray";
+  twColorName = twColorName === "purple" ? "indigo" : twColorName;
+
+  return twColorName;
+}
