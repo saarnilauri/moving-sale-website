@@ -23,7 +23,7 @@ const Layout = (props) => {
         showNav={showNav}
       />
       <div className="bg-white">{children}</div>
-      <footer className="border-t-2 border-solid border-gray-200 bg-green-200 py-20">
+      <footer className="border-t-4 border-solid border-green-700 bg-green-200 py-20">
         <Container>
           <div className="text-sm text-center my-4 text-green-600 text-lg">
             <PortableText blocks={footerText} />

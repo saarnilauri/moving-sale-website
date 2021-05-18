@@ -4,9 +4,28 @@ import PortableText from "./portableText";
 const TextSection = ({ title, text, ctas, color }) => {
   const links = ctas ? ctas : [];
 
+  const bgColor = {
+    orange: "bg-orange-500",
+    indigo: "bg-indigo-500",
+    teal: "bg-teal-500",
+    red: "bg-red-500",
+    gray: "bg-gray-500",
+    green: "bg-green-500",
+    blue: "bg-blue-500",
+  };
+  const borderColor = {
+    orange: "border-orange-700",
+    indigo: "border-indigo-700",
+    teal: "border-teal-700",
+    red: "border-red-700",
+    gray: "border-gray-700",
+    green: "border-green-700",
+    blue: "border-blue-700",
+  };
+
   return (
     <section
-      className={`bg-${color}-500 border-b-4 border-t-4 border-${color}-700 text-center`}
+      className={`${bgColor[color]} border-b-4 border-t-4 ${borderColor[color]} text-center`}
     >
       <div className="container mx-auto">
         <div className="">
