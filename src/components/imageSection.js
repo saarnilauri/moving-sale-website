@@ -52,7 +52,7 @@ const ImageSection = ({ title, img, cta, color }) => {
         <div className="max-w-md">
           <div className={`w-24 h-2 ${lineColor[color]} mb-4`}></div>
           <h2
-            className={`font-display font-bold text-2xl md:text-3xl lg:text-4xl mb-6 ${textColor[color]}`}
+            className={`font-display text-2xl md:text-3xl lg:text-4xl mb-6 ${textColor[color]}`}
           >
             {title}
           </h2>

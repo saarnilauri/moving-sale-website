@@ -7,7 +7,7 @@ import { cn } from "../lib/helpers";
 const Header = ({ onHideNav, onShowNav, showNav, siteTitle, logo }) => (
   <div className="relative z-50 border-b-8 border-gray-100">
     <div className="container mx-auto flex p-5">
-      <div className="font-bold text-xl flex-1">
+      <div className="flex-1">
         <Link to="/">
           <SanityGatsbyImage node={logo} alt={siteTitle} />
         </Link>

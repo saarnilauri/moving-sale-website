@@ -51,7 +51,7 @@ const Hero = ({ title, img, text, ctas, color }) => {
           <main className="pt-10 mx-auto max-w-7xl px-4 sm:pt-12 sm:px-6 md:pt-16 lg:pt-20 lg:px-8 xl:pt-28">
             <div className={`w-24 h-2 ${lineColor[color]} mb-4`}></div>
             <div className="text-center lg:text-left">
-              <h1 className="pt-5 text-3xl tracking-tight font-extrabold sm:text-4xl md:text-6xl lg:text-4xl xl:text-6xl">
+              <h1 className="pt-5 text-3xl tracking-tight sm:text-4xl md:text-6xl lg:text-4xl xl:text-6xl">
                 <span className={`block ${textColor[color]} xl:inline`}>
                   {title}
                 </span>

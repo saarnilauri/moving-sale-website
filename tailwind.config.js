@@ -108,7 +108,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        display: ["Dangrek", "sans-serif"],
+        display: ["Angkor", "sans-serif"],
         body: ["Battambang", "sans-serif"],
       },
     },

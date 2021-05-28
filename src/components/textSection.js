@@ -31,7 +31,7 @@ const TextSection = ({ title, text, ctas, color }) => {
         <div className="">
           <main className="pt-10 px-4 sm:pt-12 sm:px-6 md:pt-16 lg:pt-20 lg:px-8 xl:pt-28">
             <div className="mb-5 text-center">
-              <h1 className="text-3xl tracking-tight font-extrabold text-white sm:text-4xl md:text-6xl lg:text-4xl xl:text-5xl xl:leading-relaxed ">
+              <h1 className="text-3xl tracking-tight text-white sm:text-4xl md:text-6xl lg:text-4xl xl:text-5xl xl:leading-relaxed ">
                 <span className="block text-white xl:inline">{title}</span>
               </h1>
             </div>

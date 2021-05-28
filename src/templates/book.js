@@ -79,7 +79,7 @@ const BookTemplate = (props) => {
               <div className="max-w-md">
                 <div className="w-24 h-2 bg-indigo-600 mb-4"></div>
 
-                <h2 className="font-display font-bold text-2xl md:text-3xl lg:text-3xl mb-6 text-orange-500">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-3xl mb-6 text-orange-500">
                   មេរៀនទាំងអស់ដែលមានការណែនាំវីដេអូ
                 </h2>
                 {book.coverImage && (
