@@ -2,6 +2,14 @@ import React from "react";
 import getYouTubeId from "get-youtube-id";
 import YouTube from "react-youtube";
 
+const opts = {
+  playerVars: {
+    modestbranding: 1,
+    controls: 0,
+    rel: 0,
+  },
+};
+
 const YouTubePlayer = ({ url }) => {
   const id = getYouTubeId(url);
   return id ? (
@@ -12,7 +20,11 @@ const YouTubePlayer = ({ url }) => {
       }}
       className="relative h-0 overflow-hidden"
     >
-      <YouTube className="absolute top-0 left-0 w-full h-full" videoId={id} />
+      <YouTube
+        className="absolute top-0 left-0 w-full h-full"
+        videoId={id}
+        opts={opts}
+      />
     </div>
   ) : null;
 };

@@ -87,7 +87,10 @@ const BookTemplate = (props) => {
                 )}
                 <ul>
                   {lessons.edges.map((lesson) => (
-                    <li key={lesson.node.id} className="flex items-center mb-2 gap-2">
+                    <li
+                      key={lesson.node.id}
+                      className="flex items-center mb-2 gap-2"
+                    >
                       <BiBookOpen color="teal" />
                       <Link
                         to={`/book/${book.slug.current}/${lesson.node.slug.current}`}
