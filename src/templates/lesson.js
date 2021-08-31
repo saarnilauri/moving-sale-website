@@ -26,6 +26,9 @@ export const query = graphql`
       videos {
         _key
         url
+        type
+        caption
+        _rawText(resolveReferences: { maxDepth: 5 })
       }
       _rawBody(resolveReferences: { maxDepth: 5 })
     }
@@ -37,7 +40,12 @@ export const query = graphql`
 const LessonTemplate = (props) => {
   const { data, errors } = props;
   const lesson = data && data.lesson;
-
+  let videoTypeTitles = {
+    music: "វីដេអូអំពីចម្រៀងនិងកាយវិការ",
+    instruction: "វីដេអូអំពីសេចក្ដីណែនាំសកម្មភាព",
+  };
+  let currentVideoType = "";
+  let printVideoTypeTitle = false;
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
@@ -73,11 +81,33 @@ const LessonTemplate = (props) => {
                 <div className="my-5">
                   <div className="w-16 h-2 bg-indigo-600 mb-4"></div>
                   <h1 className="text-4xl text-indigo-500">វីដេអូ</h1>
-                  {lesson.videos.map((video) => (
-                    <div className="my-5" key={video._key}>
-                      <YouTubePlayer url={video.url} />
-                    </div>
-                  ))}
+                  {lesson.videos.map((video) => {
+                    printVideoTypeTitle = false;
+
+                    if (currentVideoType !== video.type) {
+                      currentVideoType = video.type;
+                      printVideoTypeTitle = true;
+                    }
+
+                    return (
+                      <div className="my-5" key={video._key}>
+                        {printVideoTypeTitle && (
+                          <h2 className="text-2xl font-bold text-orange-500 my-6">
+                            {videoTypeTitles[currentVideoType]}
+                          </h2>
+                        )}
+                        {video.caption && (
+                          <h3 className="text-xl font-bold text-green-500 mb-4">
+                            {video.caption}
+                          </h3>
+                        )}
+                        {video._rawText && (
+                          <PortableText blocks={video._rawText} />
+                        )}
+                        <YouTubePlayer url={video.url} />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
