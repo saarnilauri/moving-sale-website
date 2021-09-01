@@ -5,7 +5,7 @@ import YouTube from "react-youtube";
 const opts = {
   playerVars: {
     modestbranding: 1,
-    controls: 0,
+    controls: 1,
     rel: 0,
   },
 };
