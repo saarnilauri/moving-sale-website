@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import { BiBook } from "react-icons/bi";
 import GraphQLErrorList from "../components/graphql-error-list";
 import Layout from "../containers/layout";
+import useQRCode from "../lib/useQRCode";
 import Container from "../components/container";
 import SEO from "../components/seo";
 import YouTubePlayer from "../components/youtubePlayer";
@@ -46,6 +47,11 @@ const LessonTemplate = (props) => {
   };
   let currentVideoType = "";
   let printVideoTypeTitle = false;
+
+  const path = `/book/${lesson.book.slug.current}/${lesson.slug.current}/`;
+  const lessonLink = `https://agc-cm.com${path}`;
+  const dataUrl = useQRCode(lessonLink);
+
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
@@ -75,6 +81,12 @@ const LessonTemplate = (props) => {
               </div>
               <h2 className="text-lg text-orange-500">{lesson?.title}</h2>
               {lesson._rawBody && <PortableText blocks={lesson._rawBody} />}
+
+              <img src={dataUrl} alt="Link QR-code" width="100" height="100" />
+              <p className="my-2">
+                Link:
+                <br /> <span className="text-sm">{lessonLink}</span>
+              </p>
             </div>
             <div className="block w-full bg-orange-200 p-5">
               {lesson.videos.length > 0 && (
