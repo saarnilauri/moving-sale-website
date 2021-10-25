@@ -2,6 +2,16 @@ import React from "react";
 import SanityGatsbyImage from "./sanityGatsbyImage";
 import PortableText from "./portableText";
 
+function NewlineText(props) {
+  const text = props.text;
+  console.log(text.split("\\n"));
+  return text.split("\\n").map((str) => (
+    <span key={str} className="block">
+      {str}
+    </span>
+  ));
+}
+
 const Hero = ({ title, img, text, ctas, color }) => {
   const links = ctas ? ctas : [];
 
@@ -53,7 +63,7 @@ const Hero = ({ title, img, text, ctas, color }) => {
             <div className="text-center lg:text-left">
               <h1 className="pt-5 text-3xl tracking-tight sm:text-4xl md:text-6xl lg:text-4xl xl:text-6xl">
                 <span className={`block ${textColor[color]} xl:inline`}>
-                  {title}
+                  <NewlineText text={title} />
                 </span>
               </h1>
             </div>

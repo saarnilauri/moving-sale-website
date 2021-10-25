@@ -5,9 +5,8 @@ import { graphql, useStaticQuery } from "gatsby";
 import { imageUrlFor } from "../lib/image-url";
 import { buildImageObj } from "../lib/helpers";
 
-function SEO({ description, lang, meta, keywords, title, image }) {
+function SEO({ description, meta, keywords, title, image }) {
   const { site } = useStaticQuery(detailsQuery) || {};
-
   const metaDescription = description || site.description || "";
   const siteTitle = site.title || "";
   const siteAuthor = site.author?.name || "";
@@ -17,7 +16,7 @@ function SEO({ description, lang, meta, keywords, title, image }) {
 
   return (
     <Helmet
-      htmlAttributes={{ lang }}
+      htmlAttributes={{ lang: "kh" }}
       title={title}
       titleTemplate={title === siteTitle ? "%s" : `%s | ${siteTitle}`}
       meta={[
