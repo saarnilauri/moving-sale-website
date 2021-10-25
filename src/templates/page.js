@@ -19,7 +19,8 @@ export const query = graphql`
       }
     }
   }
-  query SiteConfig {
+
+  query pageContent($id: String!) {
     site: sanitySiteConfig(_id: { eq: "global-config" }) {
       title
       frontpage {
@@ -47,6 +48,13 @@ export const query = graphql`
             _id
           }
         }
+      }
+    }
+    route: sanityRoute(id: { eq: $id }) {
+      id
+      page {
+        title
+        description
         content {
           ... on SanityHero {
             _key
@@ -112,7 +120,7 @@ export const query = graphql`
 
 // markup
 
-const IndexPage = (props) => {
+const PageTemplate = (props) => {
   const { data, errors } = props;
   const debug = false;
 
@@ -128,13 +136,13 @@ const IndexPage = (props) => {
     <Layout>
       <SEO
         title={data.site?.title}
-        description={data.site.frontpage?.description}
-        keywords={data.site.frontpage?.keywords}
-        image={data.site.frontpage?.openGraphImage}
+        description={data.route.page?.description}
+        keywords={data.route.page?.keywords}
+        image={data.route.page?.openGraphImage}
       />
       <>
         <main>
-          {data.site.frontpage.content.map((content) => {
+          {data.route.page.content.map((content) => {
             return (
               <div key={content._key}>
                 {content._type === "hero" && (
@@ -170,4 +178,4 @@ const IndexPage = (props) => {
   );
 };
 
-export default IndexPage;
+export default PageTemplate;

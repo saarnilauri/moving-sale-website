@@ -122,7 +122,41 @@ async function createBookPages(graphql, actions) {
   });
 }
 
+async function createPages(graphql, actions) {
+  const { createPage } = actions;
+  const result = await graphql(`
+    {
+      allSanityRoute(filter: { page: { _id: { ne: null } } }) {
+        edges {
+          node {
+            id
+            slug {
+              current
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) throw result.errors;
+
+  const routeEdges = (result.data.allSanityRoute || {}).edges || [];
+
+  routeEdges.forEach((edge) => {
+    const { id, slug = {} } = edge.node;
+    const path = `/${slug.current}/`;
+
+    createPage({
+      path,
+      component: require.resolve("./src/templates/page.js"),
+      context: { id },
+    });
+  });
+}
+
 exports.createPages = async ({ graphql, actions }) => {
+  await createPages(graphql, actions);
   await createBlogPostPages(graphql, actions);
   await createLessonPages(graphql, actions);
   await createBookPages(graphql, actions);
