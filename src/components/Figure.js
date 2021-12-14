@@ -12,9 +12,18 @@ export const Figure = ({ node }) => {
     { maxWidth: 675 },
     clientConfig.sanity
   );
+  const link = node.link;
+
+  //console.log(link);
+
   return (
     <figure>
-      <GatsbyImage image={gatsbyImageData} alt={node.alt} />
+      {link && (
+        <a href={link.href} target="_blank" rel="noreferrer">
+          <GatsbyImage image={gatsbyImageData} alt={node.alt} />{" "}
+        </a>
+      )}
+      {!link && <GatsbyImage image={gatsbyImageData} alt={node.alt} />}
       <figcaption>{node.caption}</figcaption>
     </figure>
   );

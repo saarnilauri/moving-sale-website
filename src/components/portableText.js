@@ -7,6 +7,7 @@ const PortableText = ({ blocks }) => (
   <BasePortableText
     blocks={blocks}
     serializers={serializers}
+    //imageOptions={{w: 100, h: 100, fit: 'max'}}
     {...clientConfig.sanity}
   />
 );

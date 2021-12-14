@@ -91,6 +91,7 @@ export const query = graphql`
             color {
               title
             }
+            _rawText(resolveReferences: { maxDepth: 5 })
             image {
               alt
               asset {
@@ -165,6 +166,7 @@ const PageTemplate = (props) => {
                     title={content.heading}
                     img={content.image}
                     cta={content.cta}
+                    text={content._rawText}
                     color={getTwColorName(content.color?.title)}
                   />
                 )}
