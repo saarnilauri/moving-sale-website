@@ -9,6 +9,8 @@ import SEO from "../components/seo";
 import YouTubePlayer from "../components/youtubePlayer";
 import PortableText from "../components/portableText";
 import TextSection from "../components/textSection";
+//If you want to draw the QR code for the lesson set the withQRCode var to true
+const withQRCode = false;
 
 export const query = graphql`
   query LessonTemplateQuery($id: String!) {
@@ -82,11 +84,20 @@ const LessonTemplate = (props) => {
               <h2 className="text-lg text-orange-500">{lesson?.title}</h2>
               {lesson._rawBody && <PortableText blocks={lesson._rawBody} />}
 
-              <img src={dataUrl} alt="Link QR-code" width="100" height="100" />
-              <p className="my-2">
-                Link:
-                <br /> <span className="text-sm">{lessonLink}</span>
-              </p>
+              {withQRCode && (
+                <>
+                  <img
+                    src={dataUrl}
+                    alt="Link QR-code"
+                    width="100"
+                    height="100"
+                  />
+                  <p className="my-2">
+                    Link:
+                    <br /> <span className="text-sm">{lessonLink}</span>
+                  </p>
+                </>
+              )}
             </div>
             <div className="block w-full bg-orange-200 p-5">
               {lesson.videos.length > 0 && (
