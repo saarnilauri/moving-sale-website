@@ -43,6 +43,16 @@ const Hero = ({ title, img, text, ctas, color }) => {
     blue: "text-orange-500",
   };
 
+  const rgbColor = {
+    orange: "254, 227, 208",
+    indigo: "226, 224, 240",
+    teal: "217, 239, 242",
+    red: "249, 221, 219",
+    gray: "228, 228, 231",
+    green: "229, 244, 201",
+    blue: "210, 237, 249",
+  };
+
   return (
     <div className={`relative ${bgColor[color]} overflow-hidden`}>
       <div className="max-w-7xl mx-auto">
@@ -51,7 +61,7 @@ const Hero = ({ title, img, text, ctas, color }) => {
         >
           <svg
             className={`hidden lg:block absolute right-0 inset-y-0 h-full w-80 text-${color}-200 transform translate-x-1/2`}
-            fill="rgba(226, 224, 240, var(--tw-bg-opacity))"
+            fill={`rgba(${rgbColor[color]}, var(--tw-bg-opacity))`}
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
             aria-hidden="true"
