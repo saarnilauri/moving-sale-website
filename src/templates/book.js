@@ -1,12 +1,15 @@
 import React from "react";
 import { graphql, Link } from "gatsby";
 import { BiBookOpen } from "react-icons/bi";
+import useQRCode from "../lib/useQRCode";
 import GraphQLErrorList from "../components/graphql-error-list";
 import Layout from "../containers/layout";
 import Container from "../components/container";
 import SEO from "../components/seo";
 import SanityGatsbyImage from "../components/sanityGatsbyImage";
 import TextSection from "../components/textSection";
+
+const withQRCode = false;
 
 export const query = graphql`
   query BookTemplateQuery($id: String!) {
@@ -54,6 +57,10 @@ const BookTemplate = (props) => {
   const book = data && data.book;
   const lessons = data && data.lessons;
 
+  const path = `/book/${book.slug.current}/`;
+  const bookLink = `https://agc-cm.com${path}`;
+  const dataUrl = useQRCode(bookLink);
+
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
@@ -84,6 +91,20 @@ const BookTemplate = (props) => {
                 </h2>
                 {book.coverImage && (
                   <SanityGatsbyImage image={book.coverImage} />
+                )}
+                {withQRCode && (
+                  <>
+                    <img
+                      src={dataUrl}
+                      alt="Link QR-code"
+                      width="100"
+                      height="100"
+                    />
+                    <p className="my-2">
+                      Link:
+                      <br /> <span className="text-sm">{bookLink}</span>
+                    </p>
+                  </>
                 )}
                 <ul>
                   {lessons.edges.map((lesson) => (
