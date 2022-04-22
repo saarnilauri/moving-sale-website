@@ -4,7 +4,7 @@ import PortableText from "./portableText";
 
 function NewlineText(props) {
   const text = props.text;
-  console.log(text.split("\\n"));
+
   return text.split("\\n").map((str) => (
     <span key={str} className="block">
       {str}

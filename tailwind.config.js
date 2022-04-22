@@ -1,9 +1,7 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  //mode: "jit",
   purge: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
       green: {
@@ -102,13 +100,12 @@ module.exports = {
         800: "#b74701",
         900: "#983b01",
       },
-      neutral: colors.trueGray,
       gray: colors.gray,
       white: colors.white,
     },
     extend: {
       fontFamily: {
-        display: ["Angkor", "sans-serif"],
+        display: ["Londrina Solid", "sans-serif"],
         body: ["Battambang", "sans-serif"],
       },
     },

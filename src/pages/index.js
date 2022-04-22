@@ -8,6 +8,7 @@ import Hero from "../components/hero";
 import TextSection from "../components/textSection";
 import ImageSection from "../components/imageSection";
 import { getTwColorName } from "../lib/helpers";
+import GroupCard from "../components/groupCard";
 
 export const query = graphql`
   fragment SiteLogo on SanitySiteConfig {
@@ -15,7 +16,7 @@ export const query = graphql`
       alt
       asset {
         _id
-        gatsbyImageData(placeholder: BLURRED, layout: FIXED, width: 350)
+        gatsbyImageData(placeholder: BLURRED, layout: FIXED, width: 150)
       }
     }
   }
@@ -107,6 +108,28 @@ export const query = graphql`
         }
       }
     }
+    groups: allSanityGroup(sort: { fields: title, order: ASC }) {
+      edges {
+        node {
+          id
+          title
+          slug {
+            current
+          }
+          coverImage {
+            asset {
+              _id
+              gatsbyImageData(
+                placeholder: DOMINANT_COLOR
+                layout: FULL_WIDTH
+                width: 500
+                formats: WEBP
+              )
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -163,6 +186,17 @@ const IndexPage = (props) => {
               </div>
             );
           })}
+
+          <div className="antialiased text-gray-900 font-sans p-6">
+            <div className="container mx-auto">
+              <div className="flex flex-wrap -mx-4">
+                {data.groups.edges.map((group) => (
+                  <GroupCard key={group.node.id} group={group.node} />
+                ))}
+              </div>
+            </div>
+          </div>
+
           {debug && <pre>{JSON.stringify(data, null, 2)}</pre>}
         </main>
       </>

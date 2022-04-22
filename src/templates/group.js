@@ -1,13 +1,12 @@
 import React from "react";
-import { graphql, Link } from "gatsby";
-import { FaFileAlt } from "react-icons/fa";
+import { graphql } from "gatsby";
 import useQRCode from "../lib/useQRCode";
 import GraphQLErrorList from "../components/graphql-error-list";
 import Layout from "../containers/layout";
 import Container from "../components/container";
 import SEO from "../components/seo";
-import SanityGatsbyImage from "../components/sanityGatsbyImage";
-import TextSection from "../components/textSection";
+import Hero from "../components/hero";
+import Product from "../components/product";
 
 const withQRCode = false;
 
@@ -24,10 +23,9 @@ export const query = graphql`
         asset {
           _id
           gatsbyImageData(
-            layout: FIXED
             placeholder: DOMINANT_COLOR
-            width: 10
-            height: 10
+            layout: FULL_WIDTH
+            width: 2850
             formats: WEBP
           )
         }
@@ -43,6 +41,23 @@ export const query = graphql`
           title
           slug {
             current
+          }
+          price
+          categories {
+            title
+            id
+          }
+          _rawBody(resolveReferences: { maxDepth: 5 })
+          mainImage {
+            asset {
+              _id
+              gatsbyImageData(
+                placeholder: DOMINANT_COLOR
+                layout: FULL_WIDTH
+                width: 500
+                formats: WEBP
+              )
+            }
           }
         }
       }
@@ -79,19 +94,16 @@ const GroupTemplate = (props) => {
 
       {group && (
         <main className="">
-          <TextSection title={group?.title} color="orange" />
-
+          <Hero title={group.title} img={group.coverImage} color="orange" />
           <div className="border-b-4 border-t-0 border-teal-300">
-            <div className="bg-teal-200 p-12 md:p-24 flex justify-center items-center">
-              <div className="max-w-md">
-                <div className="w-24 h-2 bg-indigo-600 mb-4"></div>
+            <div className="bg-teal-200 p-12 md:p-4 flex justify-center items-center">
+              <div className="max-w-2xl">
+                <div className="w-36 h-2 bg-indigo-600 mb-4"></div>
 
                 <h2 className="font-display text-2xl md:text-3xl lg:text-3xl mb-6 text-orange-500">
-                  Here are list of products in this group:
+                  Here are list of products in this group
                 </h2>
-                {group.coverImage && (
-                  <SanityGatsbyImage image={group.coverImage} />
-                )}
+
                 {withQRCode && (
                   <>
                     <img
@@ -106,9 +118,32 @@ const GroupTemplate = (props) => {
                     </p>
                   </>
                 )}
-                <ul>
-                  {products.edges.map((product) => (
-                    <li
+              </div>
+              
+            </div>
+            <div className="antialiased text-gray-900 font-sans p-6 bg-indigo-300">
+                <div className="container mx-auto">
+                  <div className="flex flex-wrap -mx-4">
+                    {products.edges.map((product) => (
+                      <Product
+                        key={product.node.id}
+                        product={product.node}
+                        group={group}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+          </div>
+        </main>
+      )}
+    </Layout>
+  );
+};
+
+/*
+
+<li
                       key={product.node.id}
                       className="flex items-center mb-2 gap-2"
                     >
@@ -119,15 +154,6 @@ const GroupTemplate = (props) => {
                         {product.node.title}
                       </Link>
                     </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </main>
-      )}
-    </Layout>
-  );
-};
+                    */
 
 export default GroupTemplate;
