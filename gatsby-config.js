@@ -7,7 +7,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
   siteMetadata: {
-    title: "AGC CM Website",
+    title: "Saarni Family Moving Sale",
   },
   plugins: [
     {

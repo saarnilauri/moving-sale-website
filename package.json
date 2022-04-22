@@ -1,8 +1,8 @@
 {
-  "name": "agc-cm-website",
+  "name": "moving-sale-website",
   "version": "1.0.0",
   "private": true,
-  "description": "AGC CM Website",
+  "description": "Saarni Family Moving Sale Website",
   "author": "Lauri Saarni",
   "keywords": [
     "gatsby"

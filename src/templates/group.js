@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql, Link } from "gatsby";
-import { BiBookOpen } from "react-icons/bi";
+import { FaFileAlt } from "react-icons/fa";
 import useQRCode from "../lib/useQRCode";
 import GraphQLErrorList from "../components/graphql-error-list";
 import Layout from "../containers/layout";
@@ -12,8 +12,8 @@ import TextSection from "../components/textSection";
 const withQRCode = false;
 
 export const query = graphql`
-  query BookTemplateQuery($id: String!) {
-    book: sanityBook(id: { eq: $id }) {
+  query GroupTemplateQuery($id: String!) {
+    group: sanityGroup(id: { eq: $id }) {
       id
       title
       slug {
@@ -33,8 +33,8 @@ export const query = graphql`
         }
       }
     }
-    lessons: allSanityLesson(
-      filter: { book: { id: { eq: $id } } }
+    products: allSanityProduct(
+      filter: { group: { id: { eq: $id } } }
       sort: { fields: orderNum, order: ASC }
     ) {
       edges {
@@ -52,21 +52,21 @@ export const query = graphql`
 
 // _rawBody(resolveReferences: { maxDepth: 5 })
 
-const BookTemplate = (props) => {
+const GroupTemplate = (props) => {
   const { data, errors } = props;
-  const book = data && data.book;
-  const lessons = data && data.lessons;
+  const group = data && data.group;
+  const products = data && data.products;
 
-  const path = `/book/${book.slug.current}/`;
-  const bookLink = `https://agc-cm.com${path}`;
-  const dataUrl = useQRCode(bookLink);
+  const path = `/group/${group.slug.current}/`;
+  const groupLink = `https://agc-cm.com${path}`;
+  const dataUrl = useQRCode(groupLink);
 
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
-      {book && (
+      {group && (
         <SEO
-          title={book.title || "Untitled"}
+          title={group.title || "Untitled"}
           //image={post.mainImage}
         />
       )}
@@ -77,9 +77,9 @@ const BookTemplate = (props) => {
         </Container>
       )}
 
-      {book && (
+      {group && (
         <main className="">
-          <TextSection title={book?.title} color="orange" />
+          <TextSection title={group?.title} color="orange" />
 
           <div className="border-b-4 border-t-0 border-teal-300">
             <div className="bg-teal-200 p-12 md:p-24 flex justify-center items-center">
@@ -87,10 +87,10 @@ const BookTemplate = (props) => {
                 <div className="w-24 h-2 bg-indigo-600 mb-4"></div>
 
                 <h2 className="font-display text-2xl md:text-3xl lg:text-3xl mb-6 text-orange-500">
-                  មេរៀនទាំងអស់ដែលមានការណែនាំវីដេអូ
+                  Here are list of products in this group:
                 </h2>
-                {book.coverImage && (
-                  <SanityGatsbyImage image={book.coverImage} />
+                {group.coverImage && (
+                  <SanityGatsbyImage image={group.coverImage} />
                 )}
                 {withQRCode && (
                   <>
@@ -102,21 +102,21 @@ const BookTemplate = (props) => {
                     />
                     <p className="my-2">
                       Link:
-                      <br /> <span className="text-sm">{bookLink}</span>
+                      <br /> <span className="text-sm">{groupLink}</span>
                     </p>
                   </>
                 )}
                 <ul>
-                  {lessons.edges.map((lesson) => (
+                  {products.edges.map((product) => (
                     <li
-                      key={lesson.node.id}
+                      key={product.node.id}
                       className="flex items-center mb-2 gap-2"
                     >
-                      <BiBookOpen color="teal" />
+                      <FaFileAlt color="teal" />
                       <Link
-                        to={`/book/${book.slug.current}/${lesson.node.slug.current}`}
+                        to={`/group/${group.slug.current}/${product.node.slug.current}`}
                       >
-                        {lesson.node.title}
+                        {product.node.title}
                       </Link>
                     </li>
                   ))}
@@ -130,4 +130,4 @@ const BookTemplate = (props) => {
   );
 };
 
-export default BookTemplate;
+export default GroupTemplate;

@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import { BiBook } from "react-icons/bi";
+import { FaFolder } from "react-icons/fa";
 import GraphQLErrorList from "../components/graphql-error-list";
 import Layout from "../containers/layout";
 import useQRCode from "../lib/useQRCode";
@@ -9,18 +9,18 @@ import SEO from "../components/seo";
 import YouTubePlayer from "../components/youtubePlayer";
 import PortableText from "../components/portableText";
 import TextSection from "../components/textSection";
-//If you want to draw the QR code for the lesson set the withQRCode var to true
+//If you want to draw the QR code for the product set the withQRCode var to true
 const withQRCode = false;
 
 export const query = graphql`
-  query LessonTemplateQuery($id: String!) {
-    lesson: sanityLesson(id: { eq: $id }) {
+  query ProductTemplateQuery($id: String!) {
+    product: sanityProduct(id: { eq: $id }) {
       id
       title
       slug {
         current
       }
-      book {
+      group {
         title
         slug {
           current
@@ -40,9 +40,9 @@ export const query = graphql`
 
 // _rawBody(resolveReferences: { maxDepth: 5 })
 
-const LessonTemplate = (props) => {
+const ProductTemplate = (props) => {
   const { data, errors } = props;
-  const lesson = data && data.lesson;
+  const product = data && data.product;
   let videoTypeTitles = {
     music: "វីដេអូអំពីចម្រៀងនិងកាយវិការ",
     instruction: "វីដេអូអំពីសេចក្ដីណែនាំសកម្មភាព",
@@ -50,16 +50,16 @@ const LessonTemplate = (props) => {
   let currentVideoType = "";
   let printVideoTypeTitle = false;
 
-  const path = `/book/${lesson.book.slug.current}/${lesson.slug.current}/`;
-  const lessonLink = `https://agc-cm.com${path}`;
-  const dataUrl = useQRCode(lessonLink);
+  const path = `/group/${product.group.slug.current}/${product.slug.current}/`;
+  const productLink = `https://agc-cm.com${path}`;
+  const dataUrl = useQRCode(productLink);
 
   return (
     <Layout>
       {errors && <SEO title="GraphQL Error" />}
-      {lesson && (
+      {product && (
         <SEO
-          title={lesson.title || "Untitled"}
+          title={product.title || "Untitled"}
           //image={post.mainImage}
         />
       )}
@@ -70,19 +70,19 @@ const LessonTemplate = (props) => {
         </Container>
       )}
 
-      {lesson && (
+      {product && (
         <main className="">
-          <TextSection title={lesson?.title} color="green" />
+          <TextSection title={product?.title} color="green" />
           <div className="container mx-auto flex items-stretch flex-col md:flex-row">
             <div className="p-5 bg-teal-200">
               <div className="flex items-center gap-2 mb-5">
-                <BiBook fontSize="2.5em" />
+                <FaFolder fontSize="2.5em" />
                 <h1 className="text-xl text-indigo-500 mb-0">
-                  {lesson.book.title}
+                  {product.group.title}
                 </h1>
               </div>
-              <h2 className="text-lg text-orange-500">{lesson?.title}</h2>
-              {lesson._rawBody && <PortableText blocks={lesson._rawBody} />}
+              <h2 className="text-lg text-orange-500">{product?.title}</h2>
+              {product._rawBody && <PortableText blocks={product._rawBody} />}
 
               {withQRCode && (
                 <>
@@ -94,17 +94,17 @@ const LessonTemplate = (props) => {
                   />
                   <p className="my-2">
                     Link:
-                    <br /> <span className="text-sm">{lessonLink}</span>
+                    <br /> <span className="text-sm">{productLink}</span>
                   </p>
                 </>
               )}
             </div>
             <div className="block w-full bg-orange-200 p-5">
-              {lesson.videos.length > 0 && (
+              {product.videos.length > 0 && (
                 <div className="my-5">
                   <div className="w-16 h-2 bg-indigo-600 mb-4"></div>
                   <h1 className="text-4xl text-indigo-500">វីដេអូ</h1>
-                  {lesson.videos.map((video) => {
+                  {product.videos.map((video) => {
                     printVideoTypeTitle = false;
 
                     if (currentVideoType !== video.type) {
@@ -141,4 +141,4 @@ const LessonTemplate = (props) => {
   );
 };
 
-export default LessonTemplate;
+export default ProductTemplate;

@@ -1,12 +1,12 @@
-const { isFuture } = require("date-fns");
+//const { isFuture } = require("date-fns");
 /**
  * Implement Gatsby's Node APIs in this file.
  *
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-const { format } = require("date-fns");
-
+//const { format } = require("date-fns");
+/*
 async function createBlogPostPages(graphql, actions) {
   const { createPage } = actions;
   const result = await graphql(`
@@ -45,15 +45,15 @@ async function createBlogPostPages(graphql, actions) {
       });
     });
 }
-
-async function createLessonPages(graphql, actions) {
+*/
+async function createProductPages(graphql, actions) {
   const { createPage } = actions;
   const result = await graphql(`
     {
-      allSanityLesson(
+      allSanityProduct(
         filter: {
           slug: { current: { ne: null } }
-          book: { slug: { current: { ne: null } } }
+          group: { slug: { current: { ne: null } } }
         }
       ) {
         edges {
@@ -62,7 +62,7 @@ async function createLessonPages(graphql, actions) {
             slug {
               current
             }
-            book {
+            group {
               slug {
                 current
               }
@@ -75,25 +75,25 @@ async function createLessonPages(graphql, actions) {
 
   if (result.errors) throw result.errors;
 
-  const lessonEdges = (result.data.allSanityLesson || {}).edges || [];
+  const productEdges = (result.data.allSanityProduct || {}).edges || [];
 
-  lessonEdges.forEach((edge) => {
-    const { id, slug = {}, book = {} } = edge.node;
-    const path = `/book/${book.slug.current}/${slug.current}/`;
+  productEdges.forEach((edge) => {
+    const { id, slug = {}, group = {} } = edge.node;
+    const path = `/group/${group.slug.current}/${slug.current}/`;
 
     createPage({
       path,
-      component: require.resolve("./src/templates/lesson.js"),
+      component: require.resolve("./src/templates/product.js"),
       context: { id },
     });
   });
 }
 
-async function createBookPages(graphql, actions) {
+async function createGroupPages(graphql, actions) {
   const { createPage } = actions;
   const result = await graphql(`
     {
-      allSanityBook(filter: { slug: { current: { ne: null } } }) {
+      allSanityGroup(filter: { slug: { current: { ne: null } } }) {
         edges {
           node {
             id
@@ -108,15 +108,15 @@ async function createBookPages(graphql, actions) {
 
   if (result.errors) throw result.errors;
 
-  const bookEdges = (result.data.allSanityBook || {}).edges || [];
+  const groupEdges = (result.data.allSanityGroup || {}).edges || [];
 
-  bookEdges.forEach((edge) => {
+  groupEdges.forEach((edge) => {
     const { id, slug = {} } = edge.node;
-    const path = `/book/${slug.current}/`;
+    const path = `/group/${slug.current}/`;
 
     createPage({
       path,
-      component: require.resolve("./src/templates/book.js"),
+      component: require.resolve("./src/templates/group.js"),
       context: { id },
     });
   });
@@ -157,7 +157,7 @@ async function createPages(graphql, actions) {
 
 exports.createPages = async ({ graphql, actions }) => {
   await createPages(graphql, actions);
-  await createBlogPostPages(graphql, actions);
-  await createLessonPages(graphql, actions);
-  await createBookPages(graphql, actions);
+  //await createBlogPostPages(graphql, actions);
+  await createProductPages(graphql, actions);
+  await createGroupPages(graphql, actions);
 };
