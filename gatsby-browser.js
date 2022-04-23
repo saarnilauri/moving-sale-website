@@ -27,7 +27,7 @@ export const wrapPageElement = ({ element, props }) => {
         loggedInGreeting="Hello logged in user!"
         loggedOutGreeting="Hello stranger!"
         autoExpand={true}
-        debugMode={false}
+        debugMode={true}
         onMessengerShow={() => {
           console.log("onMessengerShow");
         }}
