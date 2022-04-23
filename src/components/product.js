@@ -29,9 +29,11 @@ const Product = ({ product, group }) => {
           ))}
 
           <h2 className="mt-2 mb-2  font-bold">{product.title}</h2>
-          <p className="text-sm">
-            <PortableText blocks={product._rawBody} />
-          </p>
+          {product._rawBody && (
+            <p className="text-sm">
+              <PortableText blocks={product._rawBody} />
+            </p>
+          )}
           <div className="tag my-5">$&nbsp;{product.price}</div>
         </div>
         {debug && <pre>{JSON.stringify(product, null, 2)}</pre>}

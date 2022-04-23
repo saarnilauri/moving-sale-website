@@ -140,15 +140,11 @@ const IndexPage = (props) => {
   const debug = false;
 
   if (errors) {
-    return (
-      <Layout>
-        <GraphQLErrorList errors={errors} />
-      </Layout>
-    );
+    return <GraphQLErrorList errors={errors} />;
   }
 
   return (
-    <Layout>
+    <>
       <SEO
         title={data.site?.title}
         description={data.site.frontpage?.description}
@@ -200,7 +196,7 @@ const IndexPage = (props) => {
           {debug && <pre>{JSON.stringify(data, null, 2)}</pre>}
         </main>
       </>
-    </Layout>
+    </>
   );
 };
 

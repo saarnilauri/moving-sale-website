@@ -1,19 +1,7 @@
 const React = require("react");
 
-import "@fontsource/londrina-solid";
-import "@fontsource/battambang";
-import "./src/styles/global.css";
-
 import { MessengerChat } from "react-messenger-chat-plugin";
 import Layout from "./src/containers/layout";
-/*
-export const wrapPageElement = ({ element }) => (
-  <>
-    {element}
-    <MessengerChat />
-  </>
-);
-*/
 
 export const wrapPageElement = ({ element, props }) => {
   return (

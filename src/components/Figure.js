@@ -14,8 +14,6 @@ export const Figure = ({ node }) => {
   );
   const link = node.link;
 
-  //console.log(link);
-
   return (
     <figure>
       {link && (

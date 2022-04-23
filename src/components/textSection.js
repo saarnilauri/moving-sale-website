@@ -34,9 +34,11 @@ const TextSection = ({ title, text, ctas, color }) => {
               <span className="block text-white xl:inline">{title}</span>
             </h1>
           </div>
-          <div className="text-white pb-10 lg:px-24">
-            <PortableText blocks={text} />
-          </div>
+          {text && (
+            <div className="text-white pb-10 lg:px-24">
+              <PortableText blocks={text} />
+            </div>
+          )}
           {links && links.length > 0 && (
             <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
               {links.map((link) => (

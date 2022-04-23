@@ -6,7 +6,6 @@ import SanityGatsbyImage from "./sanityGatsbyImage";
 const debug = false;
 
 const GroupCard = ({ group }) => {
-  console.log(group);
   return (
     <div className="w-full sm:w-1/2 md:w-1/2 xl:w-1/3 p-4">
       <Link

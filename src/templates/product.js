@@ -1,9 +1,8 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
 import { FaFolder } from "react-icons/fa";
-import { MessengerChat } from "react-messenger-chat-plugin";
+
 import GraphQLErrorList from "../components/graphql-error-list";
-import Layout from "../containers/layout";
 import useQRCode from "../lib/useQRCode";
 import Container from "../components/container";
 import SEO from "../components/seo";
@@ -74,7 +73,7 @@ const ProductTemplate = (props) => {
   const dataUrl = useQRCode(productLink);
 
   return (
-    <Layout>
+    <>
       {errors && <SEO title="GraphQL Error" />}
       {product && (
         <SEO
@@ -91,29 +90,6 @@ const ProductTemplate = (props) => {
 
       {product && (
         <>
-          <MessengerChat
-            pageId="527856447380354"
-            language="en_US"
-            themeColor={"#F2F3G2"}
-            height={24}
-            loggedInGreeting="Hello logged in user!"
-            loggedOutGreeting="Hello stranger!"
-            autoExpand={true}
-            debugMode={false}
-            onMessengerShow={() => {
-              console.log("onMessengerShow");
-            }}
-            onMessengerHide={() => {
-              console.log("onMessengerHide");
-            }}
-            onMessengerDialogShow={() => {
-              console.log("onMessengerDialogShow");
-            }}
-            onMessengerDialogHide={() => {
-              console.log("onMessengerDialogHide");
-            }}
-          />
-          ;
           <main className="">
             <TextSection title={product?.title} color="green" />
             <div className="container mx-auto flex items-stretch flex-col md:flex-row">
@@ -198,7 +174,7 @@ const ProductTemplate = (props) => {
           </main>
         </>
       )}
-    </Layout>
+    </>
   );
 };
 

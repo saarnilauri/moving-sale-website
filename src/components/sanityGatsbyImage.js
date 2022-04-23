@@ -6,10 +6,13 @@ const SanityGatsbyImage = ({ node, alt, className }) => {
     return null;
   }
 
+  let altText = alt ? alt : node.alt;
+  altText = altText ? altText : "image";
+
   return (
     <GatsbyImage
       image={node.asset.gatsbyImageData}
-      alt={alt ? alt : node.alt}
+      alt={altText}
       className={className}
     />
   );

@@ -3,7 +3,6 @@ import { graphql } from "gatsby";
 
 import GraphQLErrorList from "../components/graphql-error-list";
 import SEO from "../components/seo";
-import Layout from "../containers/layout";
 import Hero from "../components/hero";
 import TextSection from "../components/textSection";
 import ImageSection from "../components/imageSection";
@@ -126,15 +125,11 @@ const PageTemplate = (props) => {
   const debug = false;
 
   if (errors) {
-    return (
-      <Layout>
-        <GraphQLErrorList errors={errors} />
-      </Layout>
-    );
+    return <GraphQLErrorList errors={errors} />;
   }
 
   return (
-    <Layout>
+    <>
       <SEO
         title={data.site?.title}
         description={data.route.page?.description}
@@ -176,7 +171,7 @@ const PageTemplate = (props) => {
           {debug && <pre>{JSON.stringify(data, null, 2)}</pre>}
         </main>
       </>
-    </Layout>
+    </>
   );
 };
 
