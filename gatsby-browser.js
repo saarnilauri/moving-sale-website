@@ -41,14 +41,7 @@ export const wrapPageElement = ({ element, props }) => {
           console.log("onMessengerDialogHide");
         }}
       />
-      <button
-        className="bg-red-500 py-2 px-5"
-        onClick={() => {
-          showMessenger(true);
-        }}
-      >
-        Test
-      </button>
+      
     </Layout>
   );
 };
