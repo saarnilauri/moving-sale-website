@@ -20,9 +20,8 @@ export const wrapPageElement = ({ element, props }) => {
     <Layout {...props}>
       {element}
       <MessengerChat
-        pageId="527856447380354"
+        pageId="113089071381221"
         language="en_US"
-        themeColor={"#ff0000"}
         height={24}
         loggedInGreeting="Hello logged in user!"
         loggedOutGreeting="Hello stranger!"
@@ -41,7 +40,6 @@ export const wrapPageElement = ({ element, props }) => {
           console.log("onMessengerDialogHide");
         }}
       />
-      
     </Layout>
   );
 };
