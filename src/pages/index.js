@@ -3,7 +3,6 @@ import { graphql } from "gatsby";
 
 import GraphQLErrorList from "../components/graphql-error-list";
 import SEO from "../components/seo";
-import Layout from "../containers/layout";
 import Hero from "../components/hero";
 import TextSection from "../components/textSection";
 import ImageSection from "../components/imageSection";

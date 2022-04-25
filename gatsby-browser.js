@@ -4,7 +4,7 @@ import "@fontsource/londrina-solid";
 import "@fontsource/battambang";
 import "./src/styles/global.css";
 
-import { MessengerChat } from "react-messenger-chat-plugin";
+import { MessengerChat, showMessenger } from "react-messenger-chat-plugin";
 import Layout from "./src/containers/layout";
 /*
 export const wrapPageElement = ({ element }) => (
@@ -22,7 +22,7 @@ export const wrapPageElement = ({ element, props }) => {
       <MessengerChat
         pageId="527856447380354"
         language="en_US"
-        themeColor={"#F2F3G2"}
+        themeColor={"#ff0000"}
         height={24}
         loggedInGreeting="Hello logged in user!"
         loggedOutGreeting="Hello stranger!"
@@ -41,6 +41,14 @@ export const wrapPageElement = ({ element, props }) => {
           console.log("onMessengerDialogHide");
         }}
       />
+      <button
+        className="bg-red-500 py-2 px-5"
+        onClick={() => {
+          showMessenger(true);
+        }}
+      >
+        Test
+      </button>
     </Layout>
   );
 };
