@@ -7,15 +7,15 @@ const debug = false;
 
 const Product = ({ product, group }) => {
   return (
-    <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-4">
+    <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-4 flex-1>">
       <Link
         to={`/group/${group.slug.current}/${product.slug.current}`}
         className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden hover:no-underline"
       >
-        <div className="relative pb-48 overflow-hidden">
+        <div className="relative overflow-hidden">
           <SanityGatsbyImage
             node={product.mainImage}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
         <div className="p-4">
@@ -34,7 +34,9 @@ const Product = ({ product, group }) => {
               <PortableText blocks={product._rawBody} />
             </p>
           )}
-          <div className="tag my-5">$&nbsp;{product.price}</div>
+          <div>
+            <div className="tag my-5">$&nbsp;{product.price}</div>
+          </div>
         </div>
         {debug && <pre>{JSON.stringify(product, null, 2)}</pre>}
       </Link>
