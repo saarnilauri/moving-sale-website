@@ -29,6 +29,7 @@ export const query = graphql`
         }
       }
       price
+      ebayPrice
       categories {
         title
       }
@@ -113,7 +114,15 @@ const ProductTemplate = (props) => {
                   </span>
                 ))}
 
-                <div className="tag my-5">$&nbsp;{product.price}</div>
+                <div>
+                  <div className="tag my-5">$&nbsp;{product.price}</div>
+                </div>
+
+                {product.ebayPrice && (
+                  <div className="text-gray-500 text-sm">
+                    Price on ebay:&nbsp;$&nbsp;{product.ebayPrice}
+                  </div>
+                )}
 
                 {withQRCode && (
                   <>
