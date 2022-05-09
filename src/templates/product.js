@@ -60,8 +60,17 @@ export const query = graphql`
           )
         }
       }
-      slides{
-        public_id
+      altImages{
+        asset {
+          _id
+          gatsbyImageData(
+            placeholder: DOMINANT_COLOR
+            layout: FIXED
+            width: 240
+            height: 200
+            formats: WEBP
+          )
+        }
       }
       videos {
         _key
@@ -171,17 +180,23 @@ const ProductTemplate = (props) => {
                 )}
               </div>
               <div className="block w-full bg-orange-200 p-5">
+                
+                <div className="w-full">
                 <SanityGatsbyImage
                   node={product.mainImage}
                   className="inset-0 h-full w-full"
                 />
+                </div>
 
-                  {(product.slides && product.slides.length>0) && (
-                <div className="">
-                  {product.slides.map(slide =>(
-                  <div className="bg-red-500">
+                  {(product.altImages && product.altImages.length>0) && (
+                <div className="flex flex-col lg:flex-row justify-items-center items-center my-10">
+                  {product.altImages.map(altImage =>(
+                  <div className="m-2">
                     
-                    
+                    <SanityGatsbyImage
+                  node={altImage}
+                  className=""
+                />
                     
                     </div>
                     ))}
