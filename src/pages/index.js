@@ -7,7 +7,7 @@ import Hero from "../components/hero";
 import TextSection from "../components/textSection";
 import ImageSection from "../components/imageSection";
 import { getTwColorName } from "../lib/helpers";
-import GroupCard from "../components/groupCard";
+import GroupCard from "../components/group-card";
 
 export const query = graphql`
   fragment SiteLogo on SanitySiteConfig {

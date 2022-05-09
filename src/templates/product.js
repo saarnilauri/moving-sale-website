@@ -10,6 +10,9 @@ import YouTubePlayer from "../components/youtubePlayer";
 import PortableText from "../components/portableText";
 import TextSection from "../components/textSection";
 import SanityGatsbyImage from "../components/sanityGatsbyImage";
+import Copy from "../components/copy";
+
+
 
 //If you want to draw the QR code for the product set the withQRCode var to true
 const withQRCode = false;
@@ -38,11 +41,27 @@ export const query = graphql`
           _id
           gatsbyImageData(
             placeholder: DOMINANT_COLOR
-            layout: FIXED
+            layout: FULL_WIDTH
             width: 500
+            height: 250
             formats: WEBP
           )
         }
+      }
+      ogImage: mainImage {
+        asset {
+          _id
+          gatsbyImageData(
+            placeholder: DOMINANT_COLOR
+            layout: FIXED
+            width: 1200
+            height: 630
+            formats: WEBP
+          )
+        }
+      }
+      slides{
+        public_id
       }
       videos {
         _key
@@ -79,7 +98,7 @@ const ProductTemplate = (props) => {
       {product && (
         <SEO
           title={product.title || "Untitled"}
-          //image={post.mainImage}
+          image={product.ogImage}
         />
       )}
 
@@ -95,15 +114,8 @@ const ProductTemplate = (props) => {
             <TextSection title={product?.title} color="green" />
             <div className="container mx-auto flex items-stretch flex-col md:flex-row">
               <div className="p-5 bg-teal-200">
-                <div className="flex items-center gap-2 mb-5">
-                  <Link to={groupPath} className="hover:no-underline">
-                    <FaFolder fontSize="2.5em" />
-                    <h1 className="text-xl text-indigo-500 mb-0">
-                      {product.group.title}
-                    </h1>
-                  </Link>
-                </div>
-                <h2 className="text-lg text-orange-500">{product?.title}</h2>
+                
+                <h2 className="text-lg text-orange-500">{product?.title} <Copy text={product?.title} /></h2>
                 {product._rawBody && <PortableText blocks={product._rawBody} />}
                 {product.categories.map((category) => (
                   <span
@@ -115,7 +127,7 @@ const ProductTemplate = (props) => {
                 ))}
 
                 <div>
-                  <div className="tag my-5">$&nbsp;{product.price}</div>
+                  <div className="tag my-5">Price $&nbsp;{product.price}</div>
                 </div>
 
                 {product.ebayPrice && (
@@ -123,6 +135,25 @@ const ProductTemplate = (props) => {
                     Price on ebay:&nbsp;$&nbsp;{product.ebayPrice}
                   </div>
                 )}
+
+                <div className="mb-5 border-b pb-5 border-blue-500">
+                  <h3 className="mb-2">How to order:</h3>
+                  <ol className="list-decimal pl-5">
+                    <li>Copy the name of the product</li>
+                    <li>Open messanger</li>
+                    <li>Paste and send</li>
+                    <li>We will contact you and help with delivery and payment</li>
+                  </ol>
+                </div>
+
+                <div className="flex items-center gap-2 mb-5">
+                  <Link to={groupPath} className="hover:no-underline">
+                    <FaFolder fontSize="2.5em" />
+                    <h1 className="text-xl text-indigo-500 mb-0">
+                      See more {product.group.title.toLowerCase()}
+                    </h1>
+                  </Link>
+                </div>
 
                 {withQRCode && (
                   <>
@@ -145,6 +176,17 @@ const ProductTemplate = (props) => {
                   className="inset-0 h-full w-full"
                 />
 
+                  {(product.slides && product.slides.length>0) && (
+                <div className="">
+                  {product.slides.map(slide =>(
+                  <div className="bg-red-500">
+                    
+                    
+                    
+                    </div>
+                    ))}
+                </div>
+                )}
                 {product.videos.length > 0 && (
                   <div className="my-5">
                     <div className="w-16 h-2 bg-indigo-600 mb-4"></div>

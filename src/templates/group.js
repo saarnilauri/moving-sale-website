@@ -5,7 +5,7 @@ import GraphQLErrorList from "../components/graphql-error-list";
 import Container from "../components/container";
 import SEO from "../components/seo";
 import Hero from "../components/hero";
-import Product from "../components/product";
+import ProductCard from "../components/product-card";
 
 const withQRCode = false;
 
@@ -42,6 +42,7 @@ export const query = graphql`
             current
           }
           price
+          sold
           categories {
             title
             id
@@ -123,7 +124,7 @@ const GroupTemplate = (props) => {
               <div className="container mx-auto">
                 <div className="flex flex-wrap -mx-4">
                   {products.edges.map((product) => (
-                    <Product
+                    <ProductCard
                       key={product.node.id}
                       product={product.node}
                       group={group}

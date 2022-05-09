@@ -12,10 +12,10 @@ const GroupCard = ({ group }) => {
         to={`/group/${group.slug.current}`}
         className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden hover:no-underline"
       >
-        <div className="relative pb-48 overflow-hidden">
+        <div className="relative overflow-hidden">
           <SanityGatsbyImage
             node={group.coverImage}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="inset-0 h-full w-full object-cover"
           />
         </div>
         <div className="p-4">

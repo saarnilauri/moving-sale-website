@@ -5,9 +5,10 @@ import SanityGatsbyImage from "./sanityGatsbyImage";
 
 const debug = false;
 
-const Product = ({ product, group }) => {
+const ProductCard = ({ product, group }) => {
+  const soldStyle = product.sold ? "saturate-0 " : "";
   return (
-    <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-4 flex-1>">
+    <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-4   flex-1>">
       <Link
         to={`/group/${group.slug.current}/${product.slug.current}`}
         className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden hover:no-underline"
@@ -15,7 +16,7 @@ const Product = ({ product, group }) => {
         <div className="relative overflow-hidden">
           <SanityGatsbyImage
             node={product.mainImage}
-            className="h-full w-full object-cover"
+            className={`${soldStyle}h-full w-full object-cover`}
           />
         </div>
         <div className="p-4">
@@ -35,7 +36,12 @@ const Product = ({ product, group }) => {
             </p>
           )}
           <div>
-            <div className="tag my-5">$&nbsp;{product.price}</div>
+            {!product.sold && (
+              <div className="tag my-5">$&nbsp;{product.price}</div>
+            )}
+            {product.sold && (
+              <div className="tag-sold my-5">Sold!</div>
+            )}
           </div>
         </div>
         {debug && <pre>{JSON.stringify(product, null, 2)}</pre>}
@@ -44,4 +50,4 @@ const Product = ({ product, group }) => {
   );
 };
 
-export default Product;
+export default ProductCard;
