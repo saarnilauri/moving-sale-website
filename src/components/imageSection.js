@@ -57,6 +57,11 @@ const ImageSection = ({ title, img, cta, color, text }) => {
             >
               {title}
             </h2>
+
+            <div className="w-64">
+          <PortableText blocks={text} />
+        </div>
+
             <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
               {cta && (
                 <div
@@ -67,11 +72,6 @@ const ImageSection = ({ title, img, cta, color, text }) => {
               )}
             </div>
           </div>
-        </div>
-      </div>
-      <div className="bg-white flex justify-center">
-        <div className="w-64">
-          <PortableText blocks={text} />
         </div>
       </div>
     </>
