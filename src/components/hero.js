@@ -53,7 +53,6 @@ const Hero = ({ title, img, text, ctas, color }) => {
     blue: "210, 237, 249",
   };
 
-  console.log('links', links);
   return (
     <div className={`relative ${bgColor[color]} overflow-hidden`}>
       <div className="max-w-7xl mx-auto">

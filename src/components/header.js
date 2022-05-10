@@ -27,7 +27,7 @@ const Header = ({ siteTitle, logo }) => {
         }
       `}
       render={(data) => {
-        console.log(data);
+        
         return (
           <div className="relative z-50 border-b-8 border-gray-100">
             <div className="container mx-auto flex p-5 items-center">
