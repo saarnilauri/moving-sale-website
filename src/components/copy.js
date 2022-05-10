@@ -9,9 +9,9 @@ const Copy = ({ text }) => {
   return (
     <span>
       <CopyToClipboard text={`I am interested to buy: ${text}.`} onCopy={() => setCopied(true)}>
-        <button className="text-2xl">
-          {copied ? <span className="text-green-500"><HiCheck /></span> : null}
-          {!copied ? (<HiOutlineClipboardCopy />) : null}
+        <button className="text-2xl bg-blue-300 border rounded px-2 py-1">
+          {copied ? <span className="text-green-500"><HiCheck className="inline-block" /> <span className="text-sm">copied</span></span> : null}
+          {!copied ? (<span><HiOutlineClipboardCopy className="inline-block" /><span className="text-sm">Copy</span></span>) : null}
         </button>
       </CopyToClipboard>
 
