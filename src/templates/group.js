@@ -32,7 +32,7 @@ export const query = graphql`
     }
     products: allSanityProduct(
       filter: { group: { id: { eq: $id } } }
-      sort: { fields: orderNum, order: ASC }
+      sort: { fields: [sold, orderNum], order: ASC }
     ) {
       edges {
         node {
@@ -47,6 +47,7 @@ export const query = graphql`
             title
             id
           }
+          created: _createdAt(fromNow:true)
           _rawBody(resolveReferences: { maxDepth: 5 })
           mainImage {
             asset {
