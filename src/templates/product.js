@@ -25,11 +25,13 @@ export const query = graphql`
       }
       group {
         title
+        salePercentage
         slug {
           current
         }
       }
       price
+      salePrice
       sold
       ebayPrice
       categories {
@@ -83,6 +85,43 @@ export const query = graphql`
   }
 `;
 
+const isOnSale = (product, group) => {
+  console.log(group.salePercentage);
+  return (product.salePrice && product.salePrice < product.price) ||
+    (group.salePercentage && group.salePercentage > 0)
+    ? true
+    : false;
+};
+
+const getSalePrice = (product, group) => {
+  let salePrice =
+    product.salePrice && product.salePrice < product.price
+      ? product.salePrice
+      : product.price;
+  salePrice =
+    group.salePercentage && group.salePercentage > 0
+      ? parseFloat(
+          product.price - product.price * (group.salePercentage / 100)
+        ).toFixed(2)
+      : salePrice;
+  return salePrice;
+};
+
+const getSalePercentage = (product, group) => {
+  let salePercentage =
+    group.salePercentage && group.salePercentage > 0
+      ? "-" + group.salePercentage + "%"
+      : "";
+
+  salePercentage =
+    (!group.salePercentage || group.salePercentage == 0) &&
+    product.salePrice &&
+    product.salePrice < product.price
+      ? "-" + parseInt(100 - (product.salePrice / product.price) * 100) + "%"
+      : salePercentage;
+
+  return salePercentage;
+};
 // _rawBody(resolveReferences: { maxDepth: 5 })
 
 const ProductTemplate = (props) => {
@@ -134,15 +173,34 @@ const ProductTemplate = (props) => {
                   </span>
                 ))}
 
-                {!product.sold && (
+{isOnSale(product, product.group) && !product.sold && (
+            <span className="inline-block px-2 py-1 mr-1 leading-none bg-orange-400 text-orange-900 rounded-full font-semibold uppercase tracking-wide text-xs">
+              ON SALE {getSalePercentage(product, product.group)}
+            </span>
+          )}
+
+                {!product.sold && !isOnSale(product, product.group) && (
                   <div>
                     <div className="tag my-5">Price $&nbsp;{product.price}</div>
                   </div>
                 )}
+
+{!product.sold && isOnSale(product, product.group) && (
+              <>
+                <div className="tag-sale my-5 text-red-900">
+                  $&nbsp;{getSalePrice(product, product.group)}
+                </div>
+                <div className="mb-2">
+                  Original price:{" "}
+                  <span className="line-through">${product.price}</span>
+                </div>
+              </>
+            )}
+
                 {product.sold && <div className="tag-sold my-5">Sold!</div>}
                 {!product.sold && product.ebayPrice && (
-                  <div className="text-gray-500 text-sm">
-                    Price on ebay:&nbsp;$&nbsp;{product.ebayPrice}
+                  <div className="text-gray-500 text-sm mb-2">
+                    Price on eBay:&nbsp;$&nbsp;{product.ebayPrice}
                   </div>
                 )}
                 {!product.sold && (

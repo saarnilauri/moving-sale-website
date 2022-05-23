@@ -15,6 +15,44 @@ const isNovelty = (product) => {
   return false;
 };
 
+const isOnSale = (product, group) => {
+  console.log(group.salePercentage);
+  return (product.salePrice && product.salePrice < product.price) ||
+    (group.salePercentage && group.salePercentage > 0)
+    ? true
+    : false;
+};
+
+const getSalePrice = (product, group) => {
+  let salePrice =
+    product.salePrice && product.salePrice < product.price
+      ? product.salePrice
+      : product.price;
+  salePrice =
+    group.salePercentage && group.salePercentage > 0
+      ? parseFloat(
+          product.price - product.price * (group.salePercentage / 100)
+        ).toFixed(2)
+      : salePrice;
+  return salePrice;
+};
+
+const getSalePercentage = (product, group) => {
+  let salePercentage =
+    group.salePercentage && group.salePercentage > 0
+      ? "-" + group.salePercentage + "%"
+      : "";
+
+  salePercentage =
+    (!group.salePercentage || group.salePercentage == 0) &&
+    product.salePrice &&
+    product.salePrice < product.price
+      ? "-" + parseInt(100 - (product.salePrice / product.price) * 100) + "%"
+      : salePercentage;
+
+  return salePercentage;
+};
+
 const ProductCard = ({ product, group }) => {
   const soldStyle = product.sold ? "saturate-0 " : "";
   const novelty = isNovelty(product);
@@ -45,6 +83,12 @@ const ProductCard = ({ product, group }) => {
             </span>
           ))}
 
+          {isOnSale(product, group) && !product.sold && (
+            <span className="inline-block px-2 py-1 mr-1 leading-none bg-orange-400 text-orange-900 rounded-full font-semibold uppercase tracking-wide text-xs">
+              ON SALE {getSalePercentage(product, group)}
+            </span>
+          )}
+
           <h2 className="mt-2 mb-2  font-bold">{product.title}</h2>
           {product._rawBody && (
             <p className="text-sm">
@@ -52,8 +96,19 @@ const ProductCard = ({ product, group }) => {
             </p>
           )}
           <div>
-            {!product.sold && (
+            {!product.sold && !isOnSale(product, group) && (
               <div className="tag my-5">$&nbsp;{product.price}</div>
+            )}
+            {!product.sold && isOnSale(product, group) && (
+              <>
+                <div className="tag-sale my-5 text-red-900">
+                  $&nbsp;{getSalePrice(product, group)}
+                </div>
+                <div className="">
+                  Original price:{" "}
+                  <span className="line-through">${product.price}</span>
+                </div>
+              </>
             )}
             {product.sold && <div className="tag-sold my-5">Sold!</div>}
           </div>

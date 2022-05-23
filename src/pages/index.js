@@ -143,6 +143,7 @@ export const query = graphql`
             current
           }
           price
+          salePrice
           sold
           categories {
             title
@@ -150,6 +151,7 @@ export const query = graphql`
           }
           group {
             title
+            salePercentage
             slug {
               current
             }

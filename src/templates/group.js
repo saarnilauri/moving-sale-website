@@ -17,6 +17,7 @@ export const query = graphql`
       slug {
         current
       }
+      salePercentage
       description
       coverImage {
         asset {
@@ -42,6 +43,7 @@ export const query = graphql`
             current
           }
           price
+          salePrice
           sold
           categories {
             title

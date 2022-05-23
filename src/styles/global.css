@@ -129,3 +129,56 @@ a:focus {
 	left: -9px;
 	top: 17px;
 }
+
+.tag-sale {
+	display: inline-block;
+  
+  width: auto;
+	height: 38px;
+	
+	background-color: #f99a15;
+	-webkit-border-radius: 3px 4px 4px 3px;
+	-moz-border-radius: 3px 4px 4px 3px;
+	border-radius: 3px 4px 4px 3px;
+	
+	border-left: 1px solid #f99a15;
+
+	/* This makes room for the triangle */
+	margin-left: 19px;
+	
+	position: relative;
+	
+	
+	font-weight: 300;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 22px;
+	line-height: 38px;
+
+	padding: 0 10px 0 10px;
+}
+
+/* Makes the triangle */
+.tag-sale:before {
+	content: "";
+	position: absolute;
+	display: block;
+	left: -19px;
+	width: 0;
+	height: 0;
+	border-top: 19px solid transparent;
+	border-bottom: 19px solid transparent;
+	border-right: 19px solid #f99a15;
+}
+
+/* Makes the circle */
+.tag-sale:after {
+	content: "";
+	background-color: white;
+	border-radius: 50%;
+	width: 4px;
+	height: 4px;
+	display: block;
+	position: absolute;
+	left: -9px;
+	top: 17px;
+}
