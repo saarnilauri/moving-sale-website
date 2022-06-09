@@ -224,6 +224,7 @@ const IndexPage = (props) => {
               </div>
             );
           })}
+          {/**
           <div>
             <TextSection title="Recently added items" color="green" />
 
@@ -253,6 +254,7 @@ const IndexPage = (props) => {
               </div>
             </div>
           </div>
+           */}
           {debug && <pre>{JSON.stringify(data, null, 2)}</pre>}
         </main>
       </>

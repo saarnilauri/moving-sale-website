@@ -4,7 +4,7 @@ import { Link, StaticQuery, graphql } from "gatsby";
 import Icon from "./icon";
 import SanityGatsbyImage from "./sanityGatsbyImage";
 
-const showMenu = true;
+const showMenu = false;
 
 const Header = ({ siteTitle, logo }) => {
   const [showNav, setNav] = useState(false);

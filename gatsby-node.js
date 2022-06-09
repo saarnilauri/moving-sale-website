@@ -158,6 +158,6 @@ async function createPages(graphql, actions) {
 exports.createPages = async ({ graphql, actions }) => {
   await createPages(graphql, actions);
   //await createBlogPostPages(graphql, actions);
-  await createProductPages(graphql, actions);
-  await createGroupPages(graphql, actions);
+  //await createProductPages(graphql, actions);
+  //await createGroupPages(graphql, actions);
 };
